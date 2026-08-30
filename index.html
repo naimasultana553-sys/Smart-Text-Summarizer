@@ -2,174 +2,175 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>Smart Text Summarizer | AI-Powered Text Compression</title>
     <meta name="description" content="Quickly summarize long articles, notes, and documents with our AI-powered Smart Text Summarizer.">
-    
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Styles -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Landing Page -->
-    <section id="landing-page" class="hero-page">
-        <div class="container hero-container">
-            <div class="hero-logo animate-fade-in">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <section id="landing-page" class="hero">
+        <div class="container hero-inner">
+            <div class="hero-badge"><span class="dot"></span> AI Extractive Summarization • 100% Private</div>
+            <div class="hero-logo-wrap">
                 <img src="logo.png" alt="Smart Text Summarizer Logo" class="main-logo">
             </div>
-            <h1 class="hero-title animate-slide-up">Transform Long Text into <span class="gradient-text">Clear Insights</span></h1>
-            <p class="hero-subtitle animate-slide-up">Save hours of reading with our advanced AI-powered text compression tool. Designed for students, researchers, and professionals.</p>
-            <div class="hero-actions animate-slide-up">
+            <h1 class="hero-title">Transform long text into <span class="gradient-text">clear insights</span></h1>
+            <p class="hero-subtitle">Paste articles, papers, or notes. Get concise summaries in seconds. Built for students, researchers, and professionals — works offline, no signup.</p>
+            <div class="hero-cta">
                 <button id="get-started-btn" class="btn btn-hero">
-                    Open Text Summarizer <i class="fas fa-arrow-right"></i>
+                    Open Summarizer <i class="fas fa-arrow-right"></i>
                 </button>
+                <p class="hero-hint"><i class="fas fa-lock"></i> Runs in your browser • No data stored</p>
             </div>
-            <div class="hero-features animate-fade-in">
-                <div class="feature-tag"><i class="fas fa-bolt"></i> Instant Analysis</div>
-                <div class="feature-tag"><i class="fas fa-brain"></i> AI-Powered</div>
-                <div class="feature-tag"><i class="fas fa-lock"></i> 100% Private</div>
+            <div class="hero-stats">
+                <div class="stat"><strong>25–75%</strong><span>length control</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat"><strong>EN → BN</strong><span>translation</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat"><strong><i class="fas fa-volume-up"></i> TTS</strong><span>listen back</span></div>
             </div>
-        </div>
-        <div class="hero-bg-blobs">
-            <div class="blob blob-1"></div>
-            <div class="blob blob-2"></div>
+            <div class="hero-features">
+                <span class="feature-tag"><i class="fas fa-bolt"></i> Instant</span>
+                <span class="feature-tag"><i class="fas fa-brain"></i> AI-assisted</span>
+                <span class="feature-tag"><i class="fas fa-shield-alt"></i> Private</span>
+                <span class="feature-tag"><i class="fas fa-mobile-alt"></i> Mobile ready</span>
+            </div>
         </div>
     </section>
 
-    <!-- Main App Section (Initially Hidden) -->
     <div id="app-wrapper" class="hidden">
-        <header>
+        <header class="topbar">
             <div class="container nav-container">
-                <div class="logo">
-                    <img src="logo.png" alt="Logo" class="nav-logo">
-                    <span>Smart<span class="highlight"> Text Summarizer</span></span>
-                </div>
-            <nav>
-                <button id="history-btn" class="btn btn-icon" title="View History">
-                    <i class="fas fa-history"></i>
-                </button>
-            </nav>
-        </div>
-    </header>
+                <a class="brand" href="#" aria-label="Home">
+                    <img src="logo.png" alt="" class="nav-logo">
+                    <span class="brand-text">Smart<span> Text Summarizer</span></span>
+                    <span class="brand-badge">AI</span>
+                </a>
+                <nav class="nav-actions">
+                    <button id="history-btn" class="btn btn-ghost btn-icon" title="History" aria-label="Open history">
+                        <i class="fas fa-clock-rotate-left"></i>
+                    </button>
+                </nav>
+            </div>
+        </header>
 
-    <main class="container">
-        <section class="input-section">
-            <div class="card glass">
-                <div class="card-header">
-                    <h2><i class="fas fa-pen-nib"></i> Source Text</h2>
-                    <div class="header-actions">
-                        <button id="clear-btn" class="btn-text-action" title="Clear all text">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button id="listen-source-btn" class="btn-text-action" title="Listen to source text">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
-                        <div class="word-count" id="input-word-count">0 words</div>
+        <main class="container workspace">
+            <div class="workspace-grid">
+                <section class="card card-input">
+                    <div class="card-head">
+                        <h2><i class="fas fa-file-lines"></i> Source Text</h2>
+                        <div class="head-actions">
+                            <button id="clear-btn" class="icon-btn" title="Clear" aria-label="Clear text"><i class="fas fa-trash-can"></i></button>
+                            <button id="listen-source-btn" class="icon-btn" title="Listen" aria-label="Listen to source"><i class="fas fa-volume-high"></i></button>
+                            <span class="pill" id="input-word-count">0 words</span>
+                        </div>
                     </div>
-                </div>
-                <textarea id="source-text" placeholder="Paste your long text here (articles, research papers, notes)..." aria-label="Source text input"></textarea>
-                <div class="card-footer">
-                    <div class="controls">
-                        <div class="control-group">
-                            <label for="summary-length">Length:</label>
-                            <select id="summary-length" class="select-input">
-                                <option value="short">Short (25%)</option>
-                                <option value="medium" selected>Medium (50%)</option>
-                                <option value="long">Long (75%)</option>
+                    <div class="textarea-wrap">
+                        <textarea id="source-text" placeholder="Paste your long text here — articles, research papers, meeting notes... (Tip: try 300+ words for best results)" aria-label="Source text"></textarea>
+                        <div class="textarea-meta">
+                            <span id="input-char-count" class="meta-text">0 characters</span>
+                            <span id="reading-time" class="meta-text">~0 min read</span>
+                        </div>
+                    </div>
+                    <div class="controls-bar">
+                        <div class="control">
+                            <label for="summary-length"><i class="fas fa-sliders"></i> Length</label>
+                            <select id="summary-length" class="select">
+                                <option value="short">Short • 25%</option>
+                                <option value="medium" selected>Medium • 50%</option>
+                                <option value="long">Long • 75%</option>
                             </select>
                         </div>
-                        <div class="control-group">
-                            <label for="output-lang">Language:</label>
-                            <select id="output-lang" class="select-input">
+                        <div class="control">
+                            <label for="output-lang"><i class="fas fa-language"></i> Output</label>
+                            <select id="output-lang" class="select">
                                 <option value="en" selected>English</option>
                                 <option value="bn">Bangla</option>
                             </select>
                         </div>
-                        <div class="control-group checkbox-group">
-                            <label class="switch-label">
-                                <input type="checkbox" id="bullet-mode"> 
-                                <span>Bullets</span>
+                        <div class="control control-toggles">
+                            <label class="toggle">
+                                <input type="checkbox" id="bullet-mode">
+                                <span class="toggle-track"></span>
+                                <span class="toggle-label"><i class="fas fa-list-ul"></i> Bullets</span>
                             </label>
-                            <label class="switch-label">
-                                <input type="checkbox" id="highlight-mode"> 
-                                <span>Highlight</span>
+                            <label class="toggle">
+                                <input type="checkbox" id="highlight-mode">
+                                <span class="toggle-track"></span>
+                                <span class="toggle-label"><i class="fas fa-highlighter"></i> Highlight</span>
                             </label>
                         </div>
                     </div>
-                    <div class="actions">
-                        <button id="summarize-btn" class="btn btn-primary">
-                            <span>Summarize</span> <i class="fas fa-magic"></i>
+                    <div class="card-cta">
+                        <button id="summarize-btn" class="btn btn-primary btn-block">
+                            <span>Summarize</span> <i class="fas fa-wand-magic-sparkles"></i>
                         </button>
+                        <p class="cta-hint">Supports 100 – 10,000 words • Instant on-device processing</p>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
 
-        <section class="output-section hidden" id="output-section">
-            <div class="card result-card">
-                <div class="card-header">
-                    <h2><i class="fas fa-file-alt"></i> Summary</h2>
-                    <div class="header-actions">
-                        <button id="regenerate-btn" class="btn-text-action" title="Get a different version">
-                            <i class="fas fa-sync-alt"></i>
-                        </button>
-                        <button id="listen-summary-btn" class="btn-text-action" title="Listen to summary">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
-                        <div class="word-count" id="output-word-count">0 words</div>
+                <section class="card card-output hidden" id="output-section">
+                    <div class="card-head">
+                        <h2><i class="fas fa-sparkles"></i> Summary</h2>
+                        <div class="head-actions">
+                            <button id="regenerate-btn" class="icon-btn" title="Regenerate" aria-label="Regenerate"><i class="fas fa-rotate"></i></button>
+                            <button id="listen-summary-btn" class="icon-btn" title="Listen summary" aria-label="Listen summary"><i class="fas fa-volume-high"></i></button>
+                            <span class="pill pill-accent" id="output-word-count">0 words</span>
+                        </div>
                     </div>
-                </div>
-                <div id="summary-output" class="summary-content">
-                    <!-- Summary text will appear here -->
-                </div>
-                <div class="loader-overlay hidden" id="loader">
-                    <div class="loader"></div>
-                    <p>Processing text...</p>
-                </div>
-                <div class="card-footer">
-                    <div class="actions">
+                    <div id="summary-output" class="summary-content"></div>
+                    <div class="loader-overlay hidden" id="loader">
+                        <div class="loader"></div>
+                        <p>Analyzing and compressing...</p>
+                    </div>
+                    <div class="output-actions">
                         <button id="copy-btn" class="btn btn-primary">
-                            <i class="fas fa-copy"></i> Copy Summary
+                            <i class="fas fa-copy"></i> Copy
                         </button>
                         <div class="download-group">
-                            <button id="download-txt-btn" class="btn btn-secondary">
-                                <i class="fas fa-file-alt"></i> .TXT
-                            </button>
-                            <button id="download-pdf-btn" class="btn btn-secondary">
-                                <i class="fas fa-file-pdf"></i> .PDF
-                            </button>
+                            <button id="download-txt-btn" class="btn btn-ghost"><i class="fas fa-file-lines"></i> TXT</button>
+                            <button id="download-pdf-btn" class="btn btn-ghost"><i class="fas fa-file-pdf"></i> PDF</button>
                         </div>
                     </div>
+                </section>
+
+                <div id="output-empty" class="card card-empty">
+                    <div class="empty-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h3>Your summary will appear here</h3>
+                    <p>Choose length, toggle bullets or highlight, then hit Summarize. Try the demo text below — or paste your own.</p>
+                    <button class="btn btn-ghost btn-sm" onclick="document.getElementById('source-text').value='Artificial intelligence (AI) is transforming how we read and learn. With information overload, professionals spend hours skimming reports. Smart summarization helps by identifying key sentences using frequency and position signals. This tool scores sentences, keeps the most important ones in original order, and optionally translates to Bangla. It also supports highlighting, bullet points, text-to-speech, and history so you can compare versions quickly. Because it runs locally with an optional translation API, your text stays private and fast.'; document.getElementById('source-text').dispatchEvent(new Event('input'))">Insert demo text</button>
                 </div>
             </div>
-        </section>
-    </main>
+        </main>
 
-    <!-- History Sidebar -->
-    <aside id="history-sidebar" class="sidebar">
-        <div class="sidebar-header">
-            <h3>Recent Summaries</h3>
-            <button id="close-history" class="btn btn-icon"><i class="fas fa-times"></i></button>
-        </div>
-        <div id="history-list" class="history-list">
-            <p class="empty-msg">No history yet.</p>
-        </div>
-    </aside>
+        <div id="sidebar-backdrop" class="backdrop hidden"></div>
+        <aside id="history-sidebar" class="sidebar" aria-label="History">
+            <div class="sidebar-head">
+                <h3><i class="fas fa-clock-rotate-left"></i> Recent summaries</h3>
+                <button id="close-history" class="icon-btn" aria-label="Close history"><i class="fas fa-xmark"></i></button>
+            </div>
+            <div id="history-list" class="history-list">
+                <p class="empty-msg">No history yet. Your last 10 summaries will appear here.</p>
+            </div>
+        </aside>
 
-    <footer class="container">
-        <p>Powered by AI & Machine Learning &bull; &copy; 2026 Smart Text Summarizer</p>
-    </footer>
+        <footer class="footer">
+            <div class="container footer-inner">
+                <span>© 2026 Smart Text Summarizer • Private • No tracking</span>
+                <span class="footer-links">Extractive summarization • Bangla translation via MyMemory</span>
+            </div>
+        </footer>
+    </div>
 
-    </div> <!-- End app-wrapper -->
-
-    <!-- Scripts -->
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="app.js"></script>
 </body>
