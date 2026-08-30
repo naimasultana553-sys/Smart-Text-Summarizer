@@ -89,10 +89,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function updateWordCounts() {
         const wc = getWordCount(sourceText.value);
+        const cc = sourceText.value.length;
         if (inputWordCount) inputWordCount.textContent = `${wc} words`;
-        if (inputCharCount) inputCharCount.textContent = `${sourceText.value.length} characters`;
+        if (inputCharCount) inputCharCount.textContent = `${wc} words • ${cc} characters`;
         if (readingTime) readingTime.textContent = `~${Math.max(1, Math.ceil(wc / 220))} min read`;
-        if (summarizeBtn) summarizeBtn.disabled = wc < 3;
+        if (summarizeBtn) {
+            const hasText = wc >= 2;
+            summarizeBtn.disabled = !hasText;
+            if (!hasText) {
+                const sendIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9a9599" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>`;
+                summarizeBtn.innerHTML = sendIcon;
+            } else if (summarizeBtn.innerHTML.includes('Summariz') === false && summarizeBtn.disabled === false && summarizeBtn.innerHTML.indexOf('spinner')===-1) {
+                const activeIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>`;
+                summarizeBtn.innerHTML = activeIcon;
+            }
+        }
     }
     async function handleSummarize() {
         const text = sourceText.value.trim();
@@ -102,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (outputEmpty) outputEmpty.classList.add('hidden');
         if (loader) loader.classList.remove('hidden');
         if (summaryOutput) summaryOutput.innerHTML = "";
-        if (summarizeBtn) { summarizeBtn.disabled = true; summarizeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Summarizing...'; }
+        if (summarizeBtn) { summarizeBtn.disabled = true; summarizeBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="color:white"></i>'; }
         await new Promise(r => setTimeout(r, 700));
         const lengthMap = { 'short': 0.25, 'medium': 0.5, 'long': 0.75 };
         const ratio = lengthMap[summaryLength.value];
@@ -132,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loader.classList.add('hidden');
             const p = loader.querySelector('p'); if (p) p.textContent = "Analyzing and compressing...";
         }
-        if (summarizeBtn) summarizeBtn.innerHTML = '<span>Summarize</span> <i class="fas fa-wand-magic-sparkles"></i>';
+        if (summarizeBtn) summarizeBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>`;
         updateWordCounts();
         if (outputSection) outputSection.scrollIntoView({behavior:'smooth', block:'start'});
         saveToHistory(text.substring(0, 60) + "...", plainText);
@@ -207,6 +218,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (listenSourceBtn) listenSourceBtn.addEventListener('click', () => speak(sourceText.value, 'en'));
     if (listenSummaryBtn) listenSummaryBtn.addEventListener('click', () => { const lang = outputLang.value === 'bn' ? 'bn' : 'en'; speak(summaryOutput.innerText, lang); });
+    const promptsBtn = document.getElementById('prompts-btn');
+    const promptsPanel = document.getElementById('prompts-panel');
+    const attachBtn = document.getElementById('attach-btn');
+    const attachInput = document.getElementById('attach-input');
+    const micToggle = document.getElementById('mic-toggle');
+    if (promptsBtn && promptsPanel) {
+        promptsBtn.addEventListener('click', () => {
+            const isHidden = promptsPanel.classList.contains('hidden');
+            promptsPanel.classList.toggle('hidden', !isHidden);
+            promptsBtn.setAttribute('aria-expanded', String(isHidden));
+        });
+        promptsPanel.querySelectorAll('[data-prompt]').forEach(b => {
+            b.addEventListener('click', () => {
+                const p = b.getAttribute('data-prompt') + ' ';
+                sourceText.value = p + sourceText.value;
+                sourceText.focus();
+                updateWordCounts();
+                promptsPanel.classList.add('hidden');
+                promptsBtn.setAttribute('aria-expanded','false');
+                showToast('Prompt inserted');
+            });
+        });
+        document.addEventListener('click', (e)=>{
+            if (!promptsPanel.contains(e.target) && !promptsBtn.contains(e.target)) { promptsPanel.classList.add('hidden'); promptsBtn.setAttribute('aria-expanded','false'); }
+        });
+    }
+    if (attachBtn && attachInput) {
+        attachBtn.addEventListener('click', ()=> attachInput.click());
+        attachInput.addEventListener('change', async ()=>{
+            const f = attachInput.files[0]; if(!f) return;
+            const text = await f.text().catch(()=> '');
+            if (text) { sourceText.value = text.slice(0, 20000); updateWordCounts(); showToast(`Loaded ${f.name}`); }
+            else showToast('Could not read file');
+            attachInput.value = '';
+        });
+    }
+    let recognition = null;
+    if (micToggle) {
+        micToggle.addEventListener('change', ()=>{
+            if (micToggle.checked) {
+                const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if (!SR) { showToast('Speech not supported in this browser'); micToggle.checked = false; return; }
+                recognition = new SR(); recognition.lang = 'en-US'; recognition.interimResults = false;
+                recognition.onresult = (e)=>{ sourceText.value += (sourceText.value ? ' ' : '') + e.results[0][0].transcript; updateWordCounts(); showToast('Voice captured'); };
+                recognition.onend = ()=>{ micToggle.checked = false; };
+                recognition.onerror = ()=>{ micToggle.checked = false; showToast('Mic error'); };
+                try{ recognition.start(); showToast('Listening...'); }catch{ micToggle.checked=false; }
+            } else { if (recognition) try{ recognition.stop(); }catch{} }
+        });
+    }
+    if (sourceText) { sourceText.addEventListener('keydown', (e)=>{ if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){ e.preventDefault(); handleSummarize(); } }); }
     window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
     updateWordCounts(); renderHistory();
     if (outputSection && !outputSection.classList.contains('hidden') && outputEmpty) outputEmpty.classList.add('hidden');
