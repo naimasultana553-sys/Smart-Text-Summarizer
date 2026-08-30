@@ -13,36 +13,50 @@
     <link rel="stylesheet" href="input-bar.css">
 </head>
 <body>
-    <div class="bg-orb orb-1"></div>
-    <div class="bg-orb orb-2"></div>
-    <div class="bg-orb orb-3"></div>
-
-    <section id="landing-page" class="hero">
+    <section id="landing-page" class="hero hero--light">
+        <div class="hero-bg"></div>
         <div class="container hero-inner">
-            <div class="hero-badge"><span class="dot"></span> AI Extractive Summarization • 100% Private</div>
-            <div class="hero-logo-wrap">
-                <img src="logo.png" alt="Smart Text Summarizer Logo" class="main-logo">
+            <div class="hero-top">
+                <div class="robot" aria-hidden="true">
+                    <div class="robot-head">
+                        <span class="robot-eye eye-left"></span>
+                        <span class="robot-eye eye-right"></span>
+                        <span class="robot-antenna"></span>
+                    </div>
+                    <div class="robot-body">
+                        <span class="robot-arm arm-left"></span>
+                        <span class="robot-arm arm-right"></span>
+                    </div>
+                    <div class="robot-shadow"></div>
+                </div>
+                <div class="hero-badge hero-badge--light"><span class="dot"></span> AI Summarizer • Private • No signup</div>
             </div>
-            <h1 class="hero-title">Transform long text into <span class="gradient-text">clear insights</span></h1>
-            <p class="hero-subtitle">Paste articles, papers, or notes. Get concise summaries in seconds. Built for students, researchers, and professionals — works offline, no signup.</p>
+
+            <h1 class="hero-title hero-title--light">Stop wasting hours<br><span class="hero-accent">let AI do the work.</span></h1>
+            <p class="hero-subtitle hero-subtitle--light">Smart Text Summarizer condenses articles, papers & notes into clear insights in seconds — with length control, Bangla translation, and text-to-speech.</p>
+
             <div class="hero-cta">
-                <button id="get-started-btn" class="btn btn-hero">
-                    Open Summarizer <i class="fas fa-arrow-right"></i>
+                <button id="get-started-btn" class="btn btn-hero btn-hero--light">
+                    Get Started <i class="fas fa-arrow-right"></i>
                 </button>
-                <p class="hero-hint"><i class="fas fa-lock"></i> Runs in your browser • No data stored</p>
+                <p class="hero-hint hero-hint--light"><i class="fas fa-shield-halved"></i> Runs in your browser • Your text stays private</p>
             </div>
-            <div class="hero-stats">
+
+            <div class="hero-preview" aria-hidden="true">
+                <div class="preview-card">
+                    <div class="preview-dots"><span></span><span></span><span></span></div>
+                    <div class="preview-lines"><span style="width:88%"></span><span style="width:92%"></span><span style="width:68%"></span></div>
+                    <div class="preview-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="preview-lines preview-lines--short"><span style="width:72%"></span><span style="width:54%"></span></div>
+                </div>
+            </div>
+
+            <div class="hero-stats hero-stats--light">
                 <div class="stat"><strong>25–75%</strong><span>length control</span></div>
                 <div class="stat-divider"></div>
                 <div class="stat"><strong>EN → BN</strong><span>translation</span></div>
                 <div class="stat-divider"></div>
-                <div class="stat"><strong><i class="fas fa-volume-up"></i> TTS</strong><span>listen back</span></div>
-            </div>
-            <div class="hero-features">
-                <span class="feature-tag"><i class="fas fa-bolt"></i> Instant</span>
-                <span class="feature-tag"><i class="fas fa-brain"></i> AI-assisted</span>
-                <span class="feature-tag"><i class="fas fa-shield-alt"></i> Private</span>
-                <span class="feature-tag"><i class="fas fa-mobile-alt"></i> Mobile ready</span>
+                <div class="stat"><strong><i class="fas fa-volume-high"></i> TTS</strong><span>listen back</span></div>
             </div>
         </div>
     </section>
