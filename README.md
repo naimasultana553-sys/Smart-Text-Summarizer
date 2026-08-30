@@ -1,7 +1,7 @@
 # Smart Text Summarizer
 
 Pastes long English text and returns a shorter version with length, bullet, and highlight options — open `index.html` to use it.
-Live Demo: https://naimasultana553-sys.github.io/Test-summarizer/ <!-- verify: demo URL from previous README not confirmed live during inspection -->
+Live Demo: https://naimasultana553-sys.github.io/Smart-Text-Summarizer/ <!-- verify: Pages URL after rename, may need Pages re-enable -->
 
 ## Overview
 Static single-page app with a landing hero and a summarizer workspace. Type or paste text into the Source Text area, pick options, and click Summarize to generate an extractive summary displayed in the Summary card. Summaries can be copied, downloaded as TXT/PDF via browser print, spoken with Text-to-Speech, and are saved to a 10-item history in `localStorage`. An optional English→Bangla translation is fetched via `https://api.mymemory.translated.net`. <!-- verify: whether MyMemory translation and TTS voices work in deployment requires live check -->
