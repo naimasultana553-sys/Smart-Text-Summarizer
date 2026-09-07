@@ -1,3 +1,5 @@
+﻿> Built by [Naima Sultana](https://github.com/naimasultana553-sys) | CSE Student, Bangladesh | [LinkedIn](https://www.linkedin.com/in/naima-sultana-76a678395)
+
 # Smart Text Summarizer
 
 Pastes long English text and returns a shorter version with length, bullet, and highlight options — open `index.html` to use it.
@@ -62,3 +64,4 @@ Smart Text Summarizer/
 
 ## License
 No license file is currently included.
+
